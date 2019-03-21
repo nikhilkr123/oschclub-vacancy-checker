@@ -10,4 +10,5 @@ Across Australia [OSHClub](https://www.oshclub.com.au/) has been providing high-
 
 1. Provide details like your OSCH club login, email details etc in `src/main/resources/application.properties`
 2. Specify the dates you are seeking service for in `src/main/resources/dates.txt` in `DD-MMM-YYYY` format. e.g `01-01-2019`
-3. Run `mvn spring-boot:run`
+3. This application polls the online booking portal of [OSHClub](https://parentslogin.kidsoft.com.au) every 3 hours.
+4. Run `mvn spring-boot:run`

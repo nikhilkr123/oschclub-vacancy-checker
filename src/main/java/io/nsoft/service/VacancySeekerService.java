@@ -1,4 +1,4 @@
-package io.nsoft;
+package io.nsoft.service;
 
 import io.nsoft.client.EmailClient;
 import io.nsoft.client.KidsoftClient;
@@ -19,6 +19,8 @@ public class VacancySeekerService {
 
     private static final Logger logger = LoggerFactory.getLogger(VacancySeekerService.class);
 
+    private static final int POLL_FREQUENCY = 3*60*60*1000;
+
     @Autowired
     EmailClient emailClient;
 
@@ -31,14 +33,14 @@ public class VacancySeekerService {
     public static int execTimes = 0;
     public static Date lastExecutionTime;
 
-    @Scheduled(fixedDelay = 3*60*60*1000)
+    @Scheduled(fixedDelay = POLL_FREQUENCY)
     public String seekVacancies(){
 
         execTimes++;
         lastExecutionTime = new Date();
 
         logger.info("Starting Vacancy Seeker Service Job");
-        Scanner scanner = new Scanner(Main.class.getResourceAsStream("/dates.txt"));
+        Scanner scanner = new Scanner(VacancySeekerService.class.getResourceAsStream("/dates.txt"));
         List<String> dates = new ArrayList<>();
         while ((scanner.hasNext())){
             dates.add(scanner.next());

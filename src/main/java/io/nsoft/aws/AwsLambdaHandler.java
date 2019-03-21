@@ -1,7 +1,8 @@
-package io.nsoft;
+package io.nsoft.aws;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import io.nsoft.service.VacancySeekerService;
 
 public class AwsLambdaHandler implements RequestHandler<String, String> {
 

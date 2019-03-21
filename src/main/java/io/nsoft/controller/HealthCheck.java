@@ -1,6 +1,6 @@
 package io.nsoft.controller;
 
-import io.nsoft.VacancySeekerService;
+import io.nsoft.service.VacancySeekerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
