@@ -2,6 +2,7 @@ package io.nsoft.client;
 
 import io.nsoft.config.ConfigurationManager;
 import io.nsoft.kidsoft.model.KidsoftResponse;
+import io.nsoft.kidsoft.model.Room;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.*;
 import org.springframework.web.client.RestTemplate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class KidsoftClient {
@@ -44,7 +46,8 @@ public class KidsoftClient {
 
                 ResponseEntity<KidsoftResponse> stringResponseEntity = restTemplate.postForEntity("https://parents.kidsoft.com.au/index.php/ParentPortal/APIv1/ParentPortalBooking/getVacancies",
                         request, KidsoftResponse.class);
-                int vacancy = Integer.valueOf(stringResponseEntity.getBody().getPayload().getRooms().get(0).dateVacancies.values().stream().findFirst().get().get("Vacancies").toString());
+                List<Room> after_school_care = stringResponseEntity.getBody().getPayload().getRooms().stream().filter(room -> room.name.equalsIgnoreCase("After School Care")).collect(Collectors.toList());
+                int vacancy = Integer.valueOf(after_school_care.get(0).dateVacancies.values().stream().findFirst().get().get("Vacancies").toString());
                 log.info("{} : {}", date, vacancy);
 
                 if (vacancy > 0) {
